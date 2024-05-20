@@ -161,7 +161,7 @@ class SiteTreeContentReview extends DataExtension implements PermissionProvider
     /**
      * @param FieldList $actions
      */
-    public function updateCMSActions(FieldList $actions)
+    protected function updateCMSActions(FieldList $actions)
     {
         if (!$this->canBeReviewedBy(Security::getCurrentUser())) {
             return;
@@ -326,7 +326,7 @@ class SiteTreeContentReview extends DataExtension implements PermissionProvider
     /**
      * @param FieldList $fields
      */
-    public function updateSettingsFields(FieldList $fields)
+    protected function updateSettingsFields(FieldList $fields)
     {
         if ($this->owner->hasMethod('displayContentReview') && !$this->owner->displayContentReview()) {
             return;
@@ -564,7 +564,7 @@ class SiteTreeContentReview extends DataExtension implements PermissionProvider
     /**
      * Set the review data from the review period, if set.
      */
-    public function onBeforeWrite()
+    protected function onBeforeWrite()
     {
         // Only update if DB fields have been changed
         $changedFields = $this->owner->getChangedFields(true, 2);

@@ -15,7 +15,7 @@ class ContentReviewLeftAndMainExtension extends LeftAndMainExtension
      *
      * @param array &$clientConfig
      */
-    public function updateClientConfig(&$clientConfig)
+    protected function updateClientConfig(&$clientConfig)
     {
         $clientConfig['form']['ReviewContentForm'] = [
             'schemaUrl' => $this->owner->Link('schema/ReviewContentForm')
