@@ -110,7 +110,7 @@ class ContentReviewDefaultSettings extends DataExtension
     /**
      * @param FieldList $fields
      */
-    public function updateCMSFields(FieldList $fields)
+    protected function updateCMSFields(FieldList $fields)
     {
         $helpText = LiteralField::create(
             'ContentReviewHelp',

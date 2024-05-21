@@ -23,7 +23,7 @@ class ContentReviewOwner extends DataExtension
         "SiteTreeContentReview" => SiteTree::class,
     ];
 
-    public function updateCMSFields(FieldList $fields)
+    protected function updateCMSFields(FieldList $fields)
     {
         // Remove automatically scaffolded GridField in Member CMS fields
         $fields->removeByName('SiteTreeContentReview');
