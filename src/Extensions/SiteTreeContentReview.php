@@ -335,7 +335,7 @@ class SiteTreeContentReview extends DataExtension implements PermissionProvider
         Requirements::javascript('silverstripe/contentreview:client/dist/js/contentreview.js');
         // Display read-only version only
         if (!Permission::check("EDIT_CONTENT_REVIEW_FIELDS")) {
-            $schedule = self::get_schedule();
+            $schedule = SiteTreeContentReview::get_schedule();
             $contentOwners = ReadonlyField::create(
                 "ROContentOwners",
                 _t(__CLASS__ . ".CONTENTOWNERS", "Content Owners"),
@@ -429,7 +429,7 @@ class SiteTreeContentReview extends DataExtension implements PermissionProvider
         $reviewFrequency = DropdownField::create(
             "ReviewPeriodDays",
             _t(__CLASS__ . ".REVIEWFREQUENCY", "Review frequency"),
-            self::get_schedule()
+            SiteTreeContentReview::get_schedule()
         )
             ->addExtraClass('custom-setting')
             ->setDescription(_t(

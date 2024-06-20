@@ -24,11 +24,11 @@ class ContentReviewCompatability
     public static function start()
     {
         $compatibility = [
-            self::SUBSITES => null,
+            ContentReviewCompatability::SUBSITES => null,
         ];
 
         if (ClassInfo::exists(Subsite::class)) {
-            $compatibility[self::SUBSITES] = Subsite::$disable_subsite_filter;
+            $compatibility[ContentReviewCompatability::SUBSITES] = Subsite::$disable_subsite_filter;
             Subsite::disable_subsite_filter(true);
         }
 
@@ -41,7 +41,7 @@ class ContentReviewCompatability
     public static function done(array $compatibility)
     {
         if (class_exists(Subsite::class)) {
-            Subsite::$disable_subsite_filter = $compatibility[self::SUBSITES];
+            Subsite::$disable_subsite_filter = $compatibility[ContentReviewCompatability::SUBSITES];
         }
     }
 }
