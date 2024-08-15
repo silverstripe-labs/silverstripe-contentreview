@@ -93,6 +93,21 @@ class SiteTreeContentReview extends DataExtension implements PermissionProvider
         "ContentReviewUsers" => Member::class,
     ];
 
+    private static array $scaffold_cms_fields_settings = [
+        'ignoreFields' => [
+            'ContentReviewType',
+            'ReviewPeriodDays',
+            'NextReviewDate',
+            'LastEditedByName',
+            'OwnerNames',
+        ],
+        'ignoreRelations' => [
+            'ReviewLogs',
+            'ContentReviewGroups',
+            'ContentReviewUsers',
+        ],
+    ];
+
     /**
      * @var array
      */
