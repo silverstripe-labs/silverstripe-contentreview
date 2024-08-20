@@ -3,12 +3,12 @@
 namespace SilverStripe\ContentReview\Extensions;
 
 use SilverStripe\Admin\LeftAndMain;
-use SilverStripe\Admin\LeftAndMainExtension;
+use SilverStripe\Core\Extension;
 
 /**
- * @extends LeftAndMainExtension<LeftAndMain>
+ * @extends Extension<LeftAndMain>
  */
-class ContentReviewLeftAndMainExtension extends LeftAndMainExtension
+class ContentReviewLeftAndMainExtension extends Extension
 {
     /**
      * Append content review schema configuration

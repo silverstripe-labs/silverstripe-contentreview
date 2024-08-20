@@ -24,7 +24,6 @@ use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\OptionsetField;
 use SilverStripe\Forms\ReadonlyField;
 use SilverStripe\ORM\ArrayList;
-use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\DB;
 use SilverStripe\ORM\HasManyList;
@@ -41,6 +40,7 @@ use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\View\Requirements;
 use Symbiote\QueuedJobs\DataObjects\QueuedJobDescriptor;
 use Symbiote\QueuedJobs\Services\QueuedJobService;
+use SilverStripe\Core\Extension;
 
 /**
  * Set dates at which content needs to be reviewed and provide a report and emails to alert
@@ -56,9 +56,9 @@ use Symbiote\QueuedJobs\Services\QueuedJobService;
  * @method ManyManyList<Member> ContentReviewUsers()
  * @method HasManyList<ContentReviewLog> ReviewLogs()
  *
- * @extends DataExtension<SiteTree>
+ * @extends Extension<SiteTree>
  */
-class SiteTreeContentReview extends DataExtension implements PermissionProvider
+class SiteTreeContentReview extends Extension implements PermissionProvider
 {
     /**
      * @var array
