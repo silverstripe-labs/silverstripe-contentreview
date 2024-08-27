@@ -687,7 +687,7 @@ class SiteTreeContentReview extends DataExtension implements PermissionProvider
      * If the queued jobs module is installed, queue up the first job for 9am tomorrow morning
      * (by default).
      */
-    public function requireDefaultRecords()
+    protected function onRequireDefaultRecords()
     {
         if (class_exists(ContentReviewNotificationJob::class)) {
             // Ensure there is not already a job queued
