@@ -10,12 +10,12 @@ use SilverStripe\Forms\ListboxField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\TextareaField;
 use SilverStripe\Forms\TextField;
-use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\ManyManyList;
 use SilverStripe\Security\Group;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 use SilverStripe\SiteConfig\SiteConfig;
+use SilverStripe\Core\Extension;
 
 /**
  * This extensions add a default schema for new pages and pages without a content
@@ -25,9 +25,9 @@ use SilverStripe\SiteConfig\SiteConfig;
  * @method ManyManyList<Group> ContentReviewGroups()
  * @method ManyManyList<Member> ContentReviewUsers()
  *
- * @extends DataExtension<SiteConfig>
+ * @extends Extension<SiteConfig>
  */
-class ContentReviewDefaultSettings extends DataExtension
+class ContentReviewDefaultSettings extends Extension
 {
     /**
      * @config

@@ -4,17 +4,17 @@ namespace SilverStripe\ContentReview\Extensions;
 
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Forms\FieldList;
-use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\ManyManyList;
 use SilverStripe\Security\Group;
 use SilverStripe\Security\Member;
+use SilverStripe\Core\Extension;
 
 /**
  * @method ManyManyList<SiteTree> SiteTreeContentReview()
  *
- * @extends DataExtension<Group|Member>
+ * @extends Extension<Group|Member>
  */
-class ContentReviewOwner extends DataExtension
+class ContentReviewOwner extends Extension
 {
     /**
      * @var array
