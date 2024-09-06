@@ -19,6 +19,9 @@ use SilverStripe\Security\Group;
 use SilverStripe\Security\Member;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\ContentReview\Models\ContentReviewLog;
+use SilverStripe\PolyExecution\PolyOutput;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
 
 class ContentReviewNotificationTest extends SapphireTest
 {
@@ -59,7 +62,11 @@ class ContentReviewNotificationTest extends SapphireTest
         $childParentPage->write();
 
         $task = new ContentReviewEmails();
-        $task->run(new HTTPRequest('GET', '/dev/tasks/ContentReviewEmails'));
+        $buffer = new BufferedOutput();
+        $output = new PolyOutput(PolyOutput::FORMAT_ANSI, wrappedOutput: $buffer);
+        $input = new ArrayInput([]);
+        $input->setInteractive(false);
+        $task->run($input, $output);
 
         // Set template variables (as per variable case)
         $ToEmail = 'author@example.com';
@@ -125,7 +132,11 @@ class ContentReviewNotificationTest extends SapphireTest
         $this->assertCount(1, $childParentPage->ReviewLogs());
 
         $task = new ContentReviewEmails();
-        $task->run(new HTTPRequest('GET', '/dev/tasks/ContentReviewEmails'));
+        $buffer = new BufferedOutput();
+        $output = new PolyOutput(PolyOutput::FORMAT_ANSI, wrappedOutput: $buffer);
+        $input = new ArrayInput([]);
+        $input->setInteractive(false);
+        $task->run($input, $output);
 
         // Expecting to not send the email as content review for page is done
         $email = $this->findEmail($member->Email);

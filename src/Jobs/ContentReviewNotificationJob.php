@@ -5,9 +5,11 @@ namespace SilverStripe\ContentReview\Jobs;
 use SilverStripe\ContentReview\Tasks\ContentReviewEmails;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Core\Config\Config;
+use SilverStripe\PolyExecution\PolyOutput;
 use Symbiote\QueuedJobs\Services\AbstractQueuedJob;
 use Symbiote\QueuedJobs\Services\QueuedJob;
 use Symbiote\QueuedJobs\Services\QueuedJobService;
+use Symfony\Component\Console\Input\ArrayInput;
 
 if (!class_exists(AbstractQueuedJob::class)) {
     return;
@@ -94,7 +96,10 @@ class ContentReviewNotificationJob extends AbstractQueuedJob implements QueuedJo
         $this->queueNextRun();
 
         $task = ContentReviewEmails::create();
-        $task->run(new HTTPRequest("GET", "/dev/tasks/ContentReviewEmails"));
+        $output = PolyOutput::create(PolyOutput::FORMAT_ANSI);
+        $input = new ArrayInput([]);
+        $input->setInteractive(false);
+        $task->run($input, $output);
 
         $this->currentStep = 1;
         $this->isComplete = true;

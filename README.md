@@ -39,10 +39,7 @@ composer require silverstripe/contentreview
 composer require silverstripe/contentreview
 ```
 
-You'll also need to run `dev/build`.
-
-Run dev/build either via the web server by opening the URL `http://<your-host>/dev/build?flush` or
-by running the dev/build via a CLI: `sake dev/build flush=1`
+You'll also need to build the database either via the web server by opening the URL `http://<your-host>/dev/build?flush` or via a CLI: `sake db:build --flush`
 
 ## Documentation
 
