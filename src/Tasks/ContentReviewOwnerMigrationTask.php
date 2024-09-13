@@ -4,13 +4,27 @@ namespace SilverStripe\ContentReview\Tasks;
 
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Dev\BuildTask;
+use SilverStripe\Dev\Deprecation;
 use SilverStripe\ORM\DB;
 
 /**
  * Task which migrates the ContentReview Module's SiteTree->OwnerID column to a new column name.
+ * @deprecated 5.4.0 Will be removed without equivalent functionality to replace it
  */
 class ContentReviewOwnerMigrationTask extends BuildTask
 {
+    public function __construct()
+    {
+        parent::__construct();
+        Deprecation::withNoReplacement(function () {
+            Deprecation::notice(
+                '5.4.0',
+                'Will be removed without equivalent functionality to replace it',
+                Deprecation::SCOPE_CLASS
+            );
+        });
+    }
+
     /**
      * @param HTTPRequest $request
      */
