@@ -17,7 +17,7 @@ use SilverStripe\Security\Group;
 use SilverStripe\Security\Member;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\Versioned\Versioned;
-use SilverStripe\ORM\ArrayList;
+use SilverStripe\Model\List\ArrayList;
 use SilverStripe\Dev\FunctionalTest;
 use SilverStripe\ContentReview\Tests\SiteTreeContentReviewTestPage;
 
