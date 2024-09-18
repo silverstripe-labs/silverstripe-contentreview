@@ -63,7 +63,7 @@ class ReviewContentHandlerTest extends SapphireTest
 
         $mock = $this->getMockBuilder(ReviewContentHandler::class)
             ->setConstructorArgs([$controller])
-            ->setMethods(['canSubmitReview'])
+            ->onlyMethods(['canSubmitReview'])
             ->getMock();
 
         $mock->expects($this->exactly(3))->method('canSubmitReview')->willReturn(true);

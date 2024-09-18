@@ -21,7 +21,7 @@ class ContentReviewCMSExtensionTest extends SapphireTest
     public function testReviewContentForm()
     {
         $mock = $this->getMockBuilder(ContentReviewCMSExtension::class)
-            ->setMethods(['getReviewContentForm'])
+            ->onlyMethods(['getReviewContentForm'])
             ->getMock();
 
         $mock->expects($this->once())->method('getReviewContentForm')->with(123)->willReturn(true);
@@ -45,7 +45,7 @@ class ContentReviewCMSExtensionTest extends SapphireTest
         $this->logOut();
 
         $mock = $this->getMockBuilder(ContentReviewCMSExtension::class)
-            ->setMethods(['findRecord'])
+            ->onlyMethods(['findRecord'])
             ->getMock();
 
         $mock->setOwner(new Controller);
@@ -62,7 +62,7 @@ class ContentReviewCMSExtensionTest extends SapphireTest
     public function testSaveReviewCallsHandler()
     {
         $mock = $this->getMockBuilder(ContentReviewCMSExtension::class)
-            ->setMethods(['findRecord', 'getReviewContentHandler'])
+            ->onlyMethods(['findRecord', 'getReviewContentHandler'])
             ->getMock();
 
         $mock->setOwner(new Controller);
@@ -71,7 +71,7 @@ class ContentReviewCMSExtensionTest extends SapphireTest
         $mock->expects($this->once())->method('findRecord')->willReturn($mockPage);
 
         $mockHandler = $this->getMockBuilder(ReviewContentHandler::class)
-            ->setMethods(['submitReview'])
+            ->onlyMethods(['submitReview'])
             ->getMock();
 
         $mockHandler->expects($this->once())
