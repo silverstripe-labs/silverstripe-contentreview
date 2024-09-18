@@ -18,10 +18,16 @@ use SilverStripe\Security\Member;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\Versioned\Versioned;
 use SilverStripe\ORM\ArrayList;
+use SilverStripe\Dev\FunctionalTest;
+use SilverStripe\ContentReview\Tests\SiteTreeContentReviewTestPage;
 
-class SiteTreeContentReviewTest extends ContentReviewBaseTest
+class SiteTreeContentReviewTest extends FunctionalTest
 {
     protected $usesTransactions = false;
+
+    protected static $extra_dataobjects = [
+        SiteTreeContentReviewTestPage::class,
+    ];
 
     /**
      * @var string
@@ -372,14 +378,8 @@ class SiteTreeContentReviewTest extends ContentReviewBaseTest
     {
         $reviewer = $this->objFromFixture(Member::class, 'editor');
 
-        // Mock Page class with canReviewContent method to return true on first call and false on second call
-        $mock = $this->getMockBuilder(Page::class)
-            ->setMethods(['canReviewContent', 'NextReviewDate', 'OwnerUsers'])
-            ->getMock();
-        $mock->expects($this->exactly(2))->method('canReviewContent')->willReturnOnConsecutiveCalls(false, true);
-        $mock->method('NextReviewDate')->willReturn('2020-02-20 12:00:00');
-        $mock->method('OwnerUsers')->willReturn(ArrayList::create([$reviewer]));
-        $mock->ContentReviewType = 'Custom';
+        $mock = new SiteTreeContentReviewTestPage();
+        $mock->setReviewer($reviewer);
 
         /** @var SiteTreeContentReview $extension */
         $extension = Injector::inst()->get(SiteTreeContentReview::class);

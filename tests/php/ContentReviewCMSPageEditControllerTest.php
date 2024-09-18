@@ -16,8 +16,9 @@ use SilverStripe\Forms\Form;
 use SilverStripe\Security\Group;
 use SilverStripe\Security\Member;
 use SilverStripe\SiteConfig\SiteConfig;
+use SilverStripe\Dev\FunctionalTest;
 
-class ContentReviewCMSPageEditControllerTest extends ContentReviewBaseTest
+class ContentReviewCMSPageEditControllerTest extends FunctionalTest
 {
     /**
      * @var string
