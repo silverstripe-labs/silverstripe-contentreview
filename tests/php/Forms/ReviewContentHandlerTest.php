@@ -14,7 +14,7 @@ use SilverStripe\Forms\Form;
 use SilverStripe\Forms\HiddenField;
 use SilverStripe\Forms\TextareaField;
 use SilverStripe\Security\Member;
-use SilverStripe\ORM\ValidationException;
+use SilverStripe\Core\Validation\ValidationException;
 
 class ReviewContentHandlerTest extends SapphireTest
 {

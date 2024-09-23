@@ -4,7 +4,7 @@ namespace SilverStripe\ContentReview\Tests;
 
 use Page;
 use SilverStripe\Dev\TestOnly;
-use SilverStripe\ORM\ArrayList;
+use SilverStripe\Model\List\ArrayList;
 
 /**
  * Mock Page class with canReviewContent method to return false on first call

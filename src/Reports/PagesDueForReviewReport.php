@@ -13,7 +13,7 @@ use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\DateField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\FieldType\DBDatetime;
-use SilverStripe\ORM\SS_List;
+use SilverStripe\Model\List\SS_List;
 use SilverStripe\Reports\Report;
 use SilverStripe\Security\Security;
 use SilverStripe\SiteConfig\SiteConfig;
