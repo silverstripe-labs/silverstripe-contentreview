@@ -12,6 +12,7 @@ use SilverStripe\ContentReview\Extensions\ContentReviewOwner;
 use SilverStripe\ContentReview\Extensions\SiteTreeContentReview;
 use SilverStripe\ContentReview\Tasks\ContentReviewEmails;
 use SilverStripe\Control\HTTPRequest;
+use SilverStripe\Dev\Deprecation;
 use SilverStripe\Dev\SapphireTest;
 use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\Security\Group;
@@ -145,12 +146,14 @@ class ContentReviewNotificationTest extends SapphireTest
         $member = $this->objFromFixture(Member::class, 'author');
         $task = new ContentReviewEmails();
 
-        $this->assertTrue($method->invokeArgs($task, [$member->Email]));
-        $this->assertTrue($method->invokeArgs($task, ['correct.email@example.com']));
+        Deprecation::withSuppressedNotice(function () use ($method, $task, $member) {
+            $this->assertTrue($method->invokeArgs($task, [$member->Email]));
+            $this->assertTrue($method->invokeArgs($task, ['correct.email@example.com']));
 
-        $this->assertFalse($method->invokeArgs($task, [null]));
-        $this->assertFalse($method->invokeArgs($task, ['broken.email']));
-        $this->assertFalse($method->invokeArgs($task, ['broken@email']));
+            $this->assertFalse($method->invokeArgs($task, [null]));
+            $this->assertFalse($method->invokeArgs($task, ['broken.email']));
+            $this->assertFalse($method->invokeArgs($task, ['broken@email']));
+        });
     }
 
     /**
