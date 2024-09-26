@@ -3,11 +3,10 @@
 namespace SilverStripe\ContentReview\Tasks;
 
 use Page;
-use RuntimeException;
 use SilverStripe\ContentReview\Compatibility\ContentReviewCompatability;
 use SilverStripe\Control\Email\Email;
-use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Dev\BuildTask;
+use SilverStripe\PolyExecution\PolyOutput;
 use SilverStripe\Model\List\ArrayList;
 use SilverStripe\Dev\Deprecation;
 use SilverStripe\ORM\FieldType\DBDatetime;
@@ -17,6 +16,8 @@ use SilverStripe\Security\Member;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\Model\ArrayData;
 use SilverStripe\View\SSViewer;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
 
 /**
  * Daily task to send emails to the owners of content items when the review date rolls around.
@@ -25,20 +26,22 @@ class ContentReviewEmails extends BuildTask
 {
     private array $invalid_emails = [];
 
-    /**
-     * @param HTTPRequest $request
-     * @throws RuntimeException
-     */
-    public function run($request)
+    protected static string $commandName = 'content-review-emails';
+
+    protected static string $description = 'Daily task to send emails to the owners of content items when the review'
+        . ' date rolls around';
+
+    protected function execute(InputInterface $input, PolyOutput $output): int
     {
         $senderEmail = SiteConfig::current_site_config()->ReviewFrom;
         if (!Deprecation::withSuppressedNotice(fn() => $this->isValidEmail($senderEmail))) {
-            throw new RuntimeException(
+            $output->writeln(
                 sprintf(
-                    'Provided sender email address is invalid: "%s".',
+                    '<error>Provided sender email address is invalid: "%s".</>',
                     $senderEmail
                 )
             );
+            return Command::FAILURE;
         }
 
         $compatibility = ContentReviewCompatability::start();
@@ -59,13 +62,16 @@ class ContentReviewEmails extends BuildTask
 
         if (is_array($this->invalid_emails) && count($this->invalid_emails) > 0) {
             $plural = count($this->invalid_emails) > 1 ? 's are' : ' is';
-            throw new RuntimeException(
+            $output->writeln(
                 sprintf(
-                    'Provided email' . $plural . ' invalid: "%s".',
+                    '<error>Provided email' . $plural . ' invalid: "%s".</>',
                     implode(', ', $this->invalid_emails)
                 )
             );
+            return Command::FAILURE;
         }
+
+        return Command::SUCCESS;
     }
 
     /**

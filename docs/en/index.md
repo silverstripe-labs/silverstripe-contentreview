@@ -11,7 +11,7 @@ The module is set up in the `Settings` section of the CMS, see the [User guide](
 In order for the contentreview module to send emails, you need to *either*:
 
  * Setup the `ContentReviewEmails` script to run daily via a system cron job.
- * Install the [queuedjobs](https://github.com/symbiote/silverstripe-queuedjobs) module and follow the configuration steps to create a cron job for that module. Once installed, you can just run `dev/build` to have a job created, which will run at 9am every day by default.
+ * Install the [queuedjobs](https://github.com/symbiote/silverstripe-queuedjobs) module and follow the configuration steps to create a cron job for that module. Once installed, you can just run `sake db:build` to have a job created, which will run at 9am every day by default.
 
 ## Using
 
