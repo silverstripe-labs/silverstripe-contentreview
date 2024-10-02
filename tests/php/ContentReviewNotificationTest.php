@@ -12,7 +12,6 @@ use SilverStripe\ContentReview\Extensions\ContentReviewOwner;
 use SilverStripe\ContentReview\Extensions\SiteTreeContentReview;
 use SilverStripe\ContentReview\Tasks\ContentReviewEmails;
 use SilverStripe\Control\HTTPRequest;
-use SilverStripe\Dev\Deprecation;
 use SilverStripe\Dev\SapphireTest;
 use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\Security\Group;
@@ -143,28 +142,6 @@ class ContentReviewNotificationTest extends SapphireTest
         $this->assertNull($email);
 
         DBDatetime::clear_mock_now();
-    }
-
-    /**
-     * Test that provided email is valid
-     */
-    public function testIsValidEmail()
-    {
-        $class = new ReflectionClass(ContentReviewEmails::class);
-        $method = $class->getMethod('isValidEmail');
-        $method->setAccessible(true);
-
-        $member = $this->objFromFixture(Member::class, 'author');
-        $task = new ContentReviewEmails();
-
-        Deprecation::withSuppressedNotice(function () use ($method, $task, $member) {
-            $this->assertTrue($method->invokeArgs($task, [$member->Email]));
-            $this->assertTrue($method->invokeArgs($task, ['correct.email@example.com']));
-
-            $this->assertFalse($method->invokeArgs($task, [null]));
-            $this->assertFalse($method->invokeArgs($task, ['broken.email']));
-            $this->assertFalse($method->invokeArgs($task, ['broken@email']));
-        });
     }
 
     /**

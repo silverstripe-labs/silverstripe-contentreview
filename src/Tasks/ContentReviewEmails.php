@@ -8,7 +8,6 @@ use SilverStripe\Control\Email\Email;
 use SilverStripe\Dev\BuildTask;
 use SilverStripe\PolyExecution\PolyOutput;
 use SilverStripe\Model\List\ArrayList;
-use SilverStripe\Dev\Deprecation;
 use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\ORM\FieldType\DBField;
 use SilverStripe\Model\List\SS_List;
@@ -34,7 +33,7 @@ class ContentReviewEmails extends BuildTask
     protected function execute(InputInterface $input, PolyOutput $output): int
     {
         $senderEmail = SiteConfig::current_site_config()->ReviewFrom;
-        if (!Deprecation::withSuppressedNotice(fn() => $this->isValidEmail($senderEmail))) {
+        if (!Email::is_valid_address($senderEmail)) {
             $output->writeln(
                 sprintf(
                     '<error>Provided sender email address is invalid: "%s".</>',
@@ -124,7 +123,7 @@ class ContentReviewEmails extends BuildTask
         $siteConfig = SiteConfig::current_site_config();
         $owner = Member::get()->byID($ownerID);
 
-        if (!Deprecation::withSuppressedNotice(fn() => $this->isValidEmail($owner->Email))) {
+        if (!Email::is_valid_address($owner->Email)) {
             $this->invalid_emails[] = $owner->Name . ': ' . $owner->Email;
 
             return;
@@ -195,15 +194,5 @@ class ContentReviewEmails extends BuildTask
             'ToSurname' => $recipient->Surname,
             'ToEmail' => $recipient->Email,
         ];
-    }
-
-    /**
-     * Check validity of email
-     * @deprecated 5.4.0 Use SilverStripe\Control\Email\Email::is_valid_address() instead.
-     */
-    protected function isValidEmail(?string $email): bool
-    {
-        Deprecation::notice('5.4.0', 'Use ' . Email::class . '::is_valid_address() instead.');
-        return (bool) filter_var($email, FILTER_VALIDATE_EMAIL);
     }
 }
