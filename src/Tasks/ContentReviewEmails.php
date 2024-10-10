@@ -160,7 +160,7 @@ class ContentReviewEmails extends BuildTask
      */
     protected function getEmailBody($config, $variables)
     {
-        $template = SSViewer::fromString($config->ReviewBody);
+        $template = Deprecation::withSuppressedNotice(fn() => SSViewer::fromString($config->ReviewBody));
         $value = $template->process(ArrayData::create($variables));
 
         // Cast to HTML
