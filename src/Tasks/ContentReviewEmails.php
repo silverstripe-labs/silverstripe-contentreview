@@ -5,6 +5,7 @@ namespace SilverStripe\ContentReview\Tasks;
 use Page;
 use SilverStripe\ContentReview\Compatibility\ContentReviewCompatability;
 use SilverStripe\Control\Email\Email;
+use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Dev\BuildTask;
 use SilverStripe\PolyExecution\PolyOutput;
 use SilverStripe\Model\List\ArrayList;
@@ -14,7 +15,8 @@ use SilverStripe\Model\List\SS_List;
 use SilverStripe\Security\Member;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\Model\ArrayData;
-use SilverStripe\View\SSViewer;
+use SilverStripe\View\TemplateEngine;
+use SilverStripe\View\ViewLayerData;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 
@@ -165,9 +167,8 @@ class ContentReviewEmails extends BuildTask
      */
     protected function getEmailBody($config, $variables)
     {
-        $template = SSViewer::fromString($config->ReviewBody);
-        $value = $template->process(ArrayData::create($variables));
-
+        $engine = Injector::inst()->create(TemplateEngine::class);
+        $value = $engine->renderString($config->ReviewBody, ViewLayerData::create(ArrayData::create($variables)));
         // Cast to HTML
         return DBField::create_field('HTMLText', (string) $value);
     }
@@ -176,7 +177,7 @@ class ContentReviewEmails extends BuildTask
      * Gets list of safe template variables and their values which can be used
      * in both the static and editable templates.
      *
-     * {@see ContentReviewAdminHelp.ss}
+     * see ContentReviewAdminHelp template
      *
      * @param Member     $recipient
      * @param SiteConfig $config
