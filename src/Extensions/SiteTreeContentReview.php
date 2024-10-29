@@ -194,7 +194,7 @@ class SiteTreeContentReview extends Extension implements PermissionProvider
      *
      * @param SiteTree $page
      *
-     * @return bool|DBDate
+     * @return null|DBDate
      */
     public function getReviewDate(SiteTree $page = null)
     {
@@ -209,11 +209,11 @@ class SiteTreeContentReview extends Extension implements PermissionProvider
         $options = $this->owner->getOptions();
 
         if (!$options) {
-            return false;
+            return null;
         }
 
         if (!$options->ReviewPeriodDays) {
-            return false;
+            return null;
         }
 
         // Failover to check on ReviewPeriodDays + LastEdited
@@ -508,7 +508,6 @@ class SiteTreeContentReview extends Extension implements PermissionProvider
                 ' + ' . $options->ReviewPeriodDays . ' days',
                 DBDatetime::now()->getTimestamp()
             );
-
             $this->owner->NextReviewDate = DBDate::create()->setValue($nextDateTimestamp)->Format(DBDate::ISO_DATE);
             $this->owner->write();
         }
