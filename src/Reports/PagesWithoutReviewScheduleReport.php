@@ -14,7 +14,7 @@ use SilverStripe\ORM\DataObject;
 use SilverStripe\Model\List\SS_List;
 use SilverStripe\Reports\Report;
 use SilverStripe\SiteConfig\SiteConfig;
-use SilverStripe\Versioned\Versioned;
+use SilverStripe\Versioned\Mode\Versioned;
 
 /**
  * Show all pages that need to be reviewed.

@@ -16,7 +16,7 @@ use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\Security\Group;
 use SilverStripe\Security\Member;
 use SilverStripe\SiteConfig\SiteConfig;
-use SilverStripe\Versioned\Versioned;
+use SilverStripe\Versioned\Mode\Versioned;
 use SilverStripe\Model\List\ArrayList;
 use SilverStripe\Dev\FunctionalTest;
 use SilverStripe\ContentReview\Tests\SiteTreeContentReviewTestPage;
