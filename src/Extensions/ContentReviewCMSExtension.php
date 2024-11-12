@@ -2,6 +2,7 @@
 
 namespace SilverStripe\ContentReview\Extensions;
 
+use SilverStripe\Admin\FormSchemaController;
 use SilverStripe\Admin\LeftAndMain;
 use SilverStripe\CMS\Controllers\CMSMain;
 use SilverStripe\CMS\Model\SiteTree;
@@ -136,7 +137,7 @@ class ContentReviewCMSExtension extends Extension
      */
     protected function getSchemaRequested()
     {
-        $parts = $this->owner->getRequest()->getHeader(LeftAndMain::SCHEMA_HEADER);
+        $parts = $this->owner->getRequest()->getHeader(FormSchemaController::SCHEMA_HEADER);
         return !empty($parts);
     }
 
@@ -151,7 +152,7 @@ class ContentReviewCMSExtension extends Extension
      */
     protected function getSchemaResponse($schemaID, $form = null, ValidationResult $errors = null, $extraData = [])
     {
-        $parts = $this->owner->getRequest()->getHeader(LeftAndMain::SCHEMA_HEADER);
+        $parts = $this->owner->getRequest()->getHeader(FormSchemaController::SCHEMA_HEADER);
         $data = $this->owner
             ->getFormSchema()
             ->getMultipartSchema($parts, $schemaID, $form, $errors);
