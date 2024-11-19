@@ -1,7 +1,6 @@
 # Content Review module
 
 [![CI](https://github.com/silverstripe/silverstripe-contentreview/actions/workflows/ci.yml/badge.svg)](https://github.com/silverstripe/silverstripe-contentreview/actions/workflows/ci.yml)
-[![Silverstripe supported module](https://img.shields.io/badge/silverstripe-supported-0071C4.svg)](https://www.silverstripe.org/software/addons/silverstripe-commercially-supported-module-list/)
 
 This module helps keep your website content accurate and up-to-date, which keeps your users happy.
 
